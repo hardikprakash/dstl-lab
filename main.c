@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 int check_in_set(int val, int * set_ptr, int set_len){
     int *end_ptr = set_ptr+set_len;
@@ -10,24 +9,25 @@ int check_in_set(int val, int * set_ptr, int set_len){
         }
     }
     return 0;
-}
+};
 
 void print_set(int * set_ptr, int set_len){
     int *end_ptr = set_ptr+set_len;
+    printf("\n");
     for (int *ptr=set_ptr; ptr<end_ptr; ptr++){
-        printf("%d ", *ptr);
+        printf("%d, ", *ptr);
     }
 }
 
 int input(int *set, int set_len){
-    int temp, temp_elem;
+    int count=0, temp, temp_elem;
     printf("Enter first element:\n");
     scanf("%d", &temp_elem);
     *set = temp_elem;
     temp_elem=0;
 
     while (1){
-        printf("Enter more elements? [0/1] \n");
+        printf("Enter more elements? [0 for N, else 1] \n");
         scanf("%d", &temp);
 
         if (temp==0){
@@ -43,7 +43,6 @@ int input(int *set, int set_len){
             }
             set_len++;
             set = realloc(set, set_len*sizeof(int));
-            printf("The set length is: %d; with the current element being :%d \n", set_len, temp_elem);
             *(set+(set_len-1))=temp_elem;
         }
 
@@ -51,59 +50,37 @@ int input(int *set, int set_len){
     return set_len;
 }
 
-void set_intersection(int * set1, int set1_len, int * set2, int set2_len){
-    int set3_len, set3_count=0, final_set3_len=0;
-    if (set1_len>set2_len){
-        set3_len=set2_len;
-    }
-    else{
-        set3_len=set1_len;
-    }
-    int * set3 = (int*)calloc(set3_len, sizeof(int));
-    int * set1_end = set1+set1_len;
-    int * set2_end = set2+set2_len;
-
-    for (int*ptr=set1; ptr<set1_end; ptr++){
-        if (!(check_in_set(*ptr, set3, set3_len))){
-            *(set3+set3_count)=*ptr;
-            set3_count++;
-            final_set3_len++;
+void set_intersection(int * set1,  int * set2 ,int set1_len,int set2_len){
+   int *interSecSet;
+   int counter = 0;
+   interSecSet = (int*)calloc(counter, sizeof(int));
+   
+   for(int *ptr = set1; ptr<set1+set1_len; ++ptr){
+        if ((check_in_set(*ptr, set2, set2_len))) {
+            ++counter;
+            interSecSet = realloc(interSecSet, counter*sizeof(int));
+            *(interSecSet+(counter-1)) = *ptr;
         }
-    }
-
-    for (int*ptr=set2; ptr<set2_end; ptr++){
-        if (check_in_set(*ptr, set3, set3_len)){
-            continue;
-        }
-        else{
-            *(set3+set3_count)=*ptr;
-            set3_count++;
-            final_set3_len++;
-        }
-    }
-
-    set3=(int*)calloc(final_set3_len, sizeof(int));
-
-    print_set(set3, set3_len);
+   }
+   
+   print_set(interSecSet, counter);
 }
 
-void set_subtract(int* set1, int set1_len, int* set2, int set2_len){
-    //set1 - set2
-    int final_set3_len=0;
-    int * set3 = (int*) calloc(set1_len, sizeof(int));
-    for (int* ptr= set1; ptr<(set1+set1_len); ptr++){
-        if (!(check_in_set(*ptr, set2, set2_len))) {
-            *(set3 + final_set3_len) = *ptr;
-            final_set3_len++;
+void set_subtract(int *set1, int *set2, int set1_len, int set2_len){
+    int* diffSet; int counter = 0;
+    diffSet = (int*)calloc(counter, sizeof(int));
+    for(int *ptr = set1; ptr<set1+set1_len; ++ptr){
+        if(!check_in_set(*ptr, set2, set2_len)){
+            ++counter;
+            diffSet = realloc(diffSet, counter*sizeof(int));
+            *(diffSet+(counter-1)) = *ptr;
         }
     }
 
-    set3=(int*) calloc(final_set3_len, sizeof(int));
-    print_set(set3, final_set3_len);
+    print_set(diffSet, counter);
 }
 
-void symmDifference(int *set1, int set1_len, int *set2, int set2_len){
-    //union-intersection
+void set_symm_difference(int *set1, int *set2, int set1_len, int set2_len){
 
     int* symmDiffSet; int counter = 0;
     symmDiffSet = (int*)calloc(counter, sizeof(int));
@@ -126,7 +103,7 @@ void symmDifference(int *set1, int set1_len, int *set2, int set2_len){
     print_set(symmDiffSet, counter);
 }
 
-void unionOfSet(int *set1, int set1_len, int *set2, int set2_len){
+void set_union(int *set1, int *set2, int set1_len, int set2_len){
     int* unionSet;int counter = 0;
     unionSet = (int*)calloc(counter, sizeof(int));
 
@@ -148,37 +125,21 @@ void unionOfSet(int *set1, int set1_len, int *set2, int set2_len){
 }
 
 int main(){
-    int set1_len=1;
-    int * set1;
-    printf("Currently Entering SET 1 \n \n");
+    int set1_len=1, set2_len=1;
+    int * set1, * set2;
+    
+    
     set1 = (int*)calloc(1, sizeof(int));
-    set1_len = input(set1, set1_len);
-    printf("SET 1: \t");
-    print_set(set1, set1_len);
-
-    int set2_len=1;
-    int * set2;
-    printf("\n \n Currently Entering SET 2 \n \n");
     set2 = (int*)calloc(1, sizeof(int));
+    printf("Input the first set... \n");
+
+    set1_len = input(set1, set1_len);
+    print_set(set1,set1_len);
+    printf("Input the second set... \n");
     set2_len = input(set2, set2_len);
-    printf("SET 2: \t");
-    print_set(set2, set2_len);
+    print_set(set2,set2_len);
 
-    printf("\n \n Set1 - Set2: ");
-    set_subtract(set1, set1_len, set2, set2_len);
-
-    printf("\n \n Set2 - Set1: ");
-    set_subtract(set2, set2_len, set1, set1_len);
-
-    printf("\n \n Set1 intersection Set2: ");
-    set_intersection(set1, set1_len, set2, set2_len);
-
-    printf("\n \n Set1 symmdiff Set2: ");
-    symmDifference(set1, set1_len, set2, set2_len);
-
-    printf("\n \n Set1 union Set2: ");
-    unionOfSet(set1, set1_len, set2, set2_len);
-
+    set_intersection(set1,set2, set1_len ,set2_len);
 
     return 0;
 }
