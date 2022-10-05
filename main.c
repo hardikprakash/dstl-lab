@@ -82,7 +82,7 @@ void set_intersection(int * set1, int set1_len, int * set2, int set2_len){
         }
     }
 
-    set3=(int*)calloc(final_set3_len, sizeof(int));
+    set3=realloc(set3, final_set3_len*sizeof(int));
 
     print_set(set3, set3_len);
 }
@@ -98,7 +98,7 @@ void set_subtract(int* set1, int set1_len, int* set2, int set2_len){
         }
     }
 
-    set3=(int*) calloc(final_set3_len, sizeof(int));
+    set3=realloc(set3, final_set3_len * sizeof(int));
     print_set(set3, final_set3_len);
 }
 
