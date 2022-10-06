@@ -1,6 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int pow(int inVal, int exponent){
+    for (int i=0; i<exponent; i++){
+    inVal*=inVal;
+    }
+    return inVal;
+}
+
 int check_in_set(int val, int * set_ptr, int set_len){
     int *end_ptr = set_ptr+set_len;
 
@@ -64,27 +71,19 @@ void set_intersection(int * set1, int set1_len, int * set2, int set2_len){
     int * set2_end = set2+set2_len;
 
     for (int*ptr=set1; ptr<set1_end; ptr++){
-        if (!(check_in_set(*ptr, set3, set3_len))){
+        if (check_in_set(*ptr, set2,set2_len)){
             *(set3+set3_count)=*ptr;
             set3_count++;
             final_set3_len++;
-        }
-    }
-
-    for (int*ptr=set2; ptr<set2_end; ptr++){
-        if (check_in_set(*ptr, set3, set3_len)){
-            continue;
         }
         else{
-            *(set3+set3_count)=*ptr;
-            set3_count++;
-            final_set3_len++;
+            continue;
         }
     }
 
     set3=realloc(set3, final_set3_len*sizeof(int));
 
-    print_set(set3, set3_len);
+    print_set(set3, final_set3_len);
 }
 
 void set_subtract(int* set1, int set1_len, int* set2, int set2_len){
@@ -147,20 +146,27 @@ void unionOfSet(int *set1, int set1_len, int *set2, int set2_len){
 
 }
 
+void power_set(int * set, int set_len){
+    int power_set_len;
+    power_set_len= pow(2, set_len);
+    int power_arr[power_set_len];
+
+}
+
 int main(){
     int set1_len=1;
     int * set1;
     printf("Currently Entering SET 1 \n \n");
     set1 = (int*)calloc(1, sizeof(int));
     set1_len = input(set1, set1_len);
-    printf("SET 1: \t");
-    print_set(set1, set1_len);
 
     int set2_len=1;
     int * set2;
     printf("\n \n Currently Entering SET 2 \n \n");
     set2 = (int*)calloc(1, sizeof(int));
     set2_len = input(set2, set2_len);
+    printf("\n \n SET 1: \t");
+    print_set(set1, set1_len);
     printf("SET 2: \t");
     print_set(set2, set2_len);
 
