@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
+
 int checkInSet(int val, int * setPointer, int setLength){
     int *endPointer = setPointer+setLength;
 
@@ -15,6 +17,9 @@ int checkInSet(int val, int * setPointer, int setLength){
 void printSet(int * set_ptr, int setLength){
     int *endPointer = set_ptr+setLength;
     printf("\n");
+    if(setLength==0){
+        printf("NULL");
+    }
     for (int *ptr=set_ptr; ptr<endPointer; ptr++){
         printf("%d, ", *ptr);
     }
@@ -128,8 +133,6 @@ void setUnion(int *set1, int *set2, int set1Len, int set2Len){
 int main(){
     int set1Len=1, set2Len=1;
     int * set1, * set2;
-    
-    
     set1 = (int*)calloc(1, sizeof(int));
     set2 = (int*)calloc(1, sizeof(int));
     printf("\n Input the first set... \n");
@@ -150,8 +153,6 @@ int main(){
     setSubtract(set2, set1, set2Len, set1Len);
     printf("\n Set 1 symmetric difference Set 2: ");
     setSymmDifference(set1, set2, set1Len, set2Len);
-    printf("\n Set 2 symmetric difference Set 1: ");
-    setSymmDifference(set2, set1, set2Len, set1Len);
 
     return 0;
 }
