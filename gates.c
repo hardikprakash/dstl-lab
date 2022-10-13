@@ -2,10 +2,11 @@
 #include <stdlib.h>
 
 
-void arrayPrinter(int *inp, int len){
+void arrayPrinter(int *inp1, int* inp2, int* out, int len){
     printf("\n");
+    printf("A   B   X\n\n");
     for(int i = 0; i < len; ++i){
-        printf("%d ", inp[i]);
+        printf("%d   %d   %d \n", inp1[i], inp2[i], out[i]);
     }
     printf("\n");
 }
@@ -13,13 +14,13 @@ void arrayPrinter(int *inp, int len){
 int* andCalc(int *inp1, int *inp2, int len){
     int out[len];
     for(int i = 0; i < len; ++i){
-        if((inp1[i] == 1 && inp2[i] == 1) || (inp1[i] == 0 && inp2[i] == 0)){
+        if((inp1[i] == 1 && inp2[i] == 1)){
             out[i] = 1;
         }else{
             out[i] = 0;    
         }
     }
-    arrayPrinter(out, len);
+    arrayPrinter(inp1, inp2 ,out, len);
 }
 
 int* orCalc(int *inp1, int *inp2, int len){
@@ -31,7 +32,7 @@ int* orCalc(int *inp1, int *inp2, int len){
             out[i] = 0;    
         }
     }
-    arrayPrinter(out, len);
+   arrayPrinter(inp1, inp2 ,out, len);
 }
 
 int* xorCalc(int *inp1, int *inp2, int len){
@@ -43,7 +44,7 @@ int* xorCalc(int *inp1, int *inp2, int len){
             out[i] = 1;    
         }
     }
-    arrayPrinter(out, len);
+    arrayPrinter(inp1, inp2 ,out, len);
 }
 
 int* norCalc(int *inp1, int *inp2, int len){
@@ -55,7 +56,7 @@ int* norCalc(int *inp1, int *inp2, int len){
             out[i] = 1;    
         }
     }
-    arrayPrinter(out, len);
+   arrayPrinter(inp1, inp2 ,out, len);
 }
 
 int* xnorCalc(int *inp1, int *inp2, int len){
@@ -67,7 +68,7 @@ int* xnorCalc(int *inp1, int *inp2, int len){
             out[i] = 0;    
         }
     }
-    arrayPrinter(out, len);
+    arrayPrinter(inp1, inp2 ,out, len);
 }
 
 int main(){
