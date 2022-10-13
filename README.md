@@ -9,3 +9,7 @@
 7. Write a C Program to find Cartesian Product of two sets _(not started)_
 8. Write a program in C for minimum cost spanning tree. _(not started)_
 9. Write a program in C for finding shortest path in a Graph _(not started)_
+
+## Other Programs
+
+1. Boolean Table for OR, AND, XOR, XNOR and NOR [Logic Gates](LogicGates.c)
