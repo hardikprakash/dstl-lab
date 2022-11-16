@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
 int pow(int inVal, int exponent){
     for (int i=0; i<exponent; i++){
