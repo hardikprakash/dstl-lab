@@ -1,0 +1,39 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+#include <math.h>
+
+
+// 1. The user inputs the number which has to be raised to the power of e.
+// 2. We take the expansion upto the first 10 terms to balance between time and accuracy.
+// 3. Now we create a recursive function to calculate exponent value and another to calculate the factorial of the denominator
+// 4. The result is now calculated and printed.
+
+int fac(int n){
+    if(n < 1){
+        return 1;
+    }
+    return n * fac(n-1);
+}
+
+float expo(int i, int x){
+    
+    if(i == 0){
+        return 1;
+    }
+    return (pow(x, i) /fac(i)) + expo(i-1, x);
+}
+
+
+int main() {
+    int n;
+    printf("Please input the number you have to raise the power of exponential \n");
+    
+    scanf("%d", &n);
+    
+    
+    printf("%f \n", expo(10, n));
+       
+    
+    
+    
+}
